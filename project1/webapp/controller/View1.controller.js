@@ -20,7 +20,9 @@ sap.ui.define([
                         { Name : "test2", Desc : "설명2"},
                         { Name : "test3", Desc : "설명3"}
                     ],
-                    value : null
+                    value : null,
+                    integer : null,
+                    date : new Date()
                 });
 
                 this.getView().setModel(oModel, "view")
