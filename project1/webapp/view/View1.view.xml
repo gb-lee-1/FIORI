@@ -1,7 +1,34 @@
 <mvc:View controllerName="project1.controller.View1"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
     <Page id="page" title="{i18n>title}">
-        <content />
+        <content>
+            <Panel>
+                <f:SimpleForm >
+                    <f:content>
+                        <Label text="change 이벤트"/>
+                        <Input change="onInputChange" description="(내용변경 후) Enter &amp; Focus Leave"/>
+
+                        <Label text="submit 이벤트"/>
+                        <Input submit="onSubmit" description="Enter 키 입력 시 (내용변경과 상관없이)"/>
+
+                        <Label text="liveChange 이벤트"/>
+                        <Input liveChange="onLiveChange" description="모든 입력관련 키 입력시 실행"/>
+
+                        <Label text="ValueHelp 이벤트"/>
+                        <Input showValueHelp="true" valueHelpRequest="handleValueHelp" description=""/>
+                    </f:content>
+                </f:SimpleForm>
+                <f:SimpleForm >
+                    <f:content>
+                        <Label text="liveChange 응용"/>
+                        <Input showClearIcon="true" liveChange="onLiveChange2" type="Password" description="길이는 10자리 이상"/>
+                    </f:content>
+                </f:SimpleForm>
+
+            </Panel>
+        </content>
     </Page>
 </mvc:View>
