@@ -2,7 +2,8 @@
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:l="sap.ui.layout"
-	xmlns:f="sap.ui.layout.form">
+	xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
     <Page id="page" title="{i18n>title}">
         <content>
             <Panel>
@@ -17,8 +18,25 @@
                         <Label text="liveChange 이벤트"/>
                         <Input liveChange="onLiveChange" description="모든 입력관련 키 입력시 실행"/>
 
+                        <Label text="liveChange 프로퍼티 바인딩"/>
+                        <Input liveChange="onLiveChange" value="{view>/value}" valueLiveUpdate="true" description=""/>
+                        <!-- 프로퍼티 바인딩한 모델에는 실시간으로 값이 업데이트 되지 않음 valueLiveUpdate="true" 로 설정해야 가능함 -->
+
                         <Label text="ValueHelp 이벤트"/>
                         <Input showValueHelp="true" valueHelpRequest="handleValueHelp" description=""/>
+
+                        <Label text="suggest 기능"/>
+                        <Input showSuggestion="true" suggestionItems="{view>/ValueHelpData}">
+                            <suggestionItems>
+                                <core:Item text="{view>Name}" />
+                            </suggestionItems>
+                        </Input>
+                        <Input showSuggestion="true" suggestionItems="{view>/ValueHelpData}"
+                            suggest=".onSuggest">
+                            <suggestionItems>
+                                <core:Item text="{view>Name}" />
+                            </suggestionItems>
+                        </Input>
                     </f:content>
                 </f:SimpleForm>
                 <f:SimpleForm >

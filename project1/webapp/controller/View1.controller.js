@@ -16,10 +16,11 @@ sap.ui.define([
             onInit: function () {
                 var oModel = new JSONModel({
                     ValueHelpData : [
-                        { Name : "목록1", Desc : "설명1"},
-                        { Name : "목록2", Desc : "설명2"},
-                        { Name : "목록3", Desc : "설명3"}
-                    ]
+                        { Name : "test1 sample", Desc : "설명1"},
+                        { Name : "test2", Desc : "설명2"},
+                        { Name : "test3", Desc : "설명3"}
+                    ],
+                    value : null
                 });
 
                 this.getView().setModel(oModel, "view")
@@ -39,8 +40,10 @@ sap.ui.define([
                 var sValue = oEvent.getParameter("value"),
                     bEsc = oEvent.getParameter("escPressed"),
                     sPrevious = oEvent.getParameter("previousValue");
+
+                var sModelValue = this.getView().getModel("view").getProperty("/value")
                 
-                MessageToast.show(sValue + "\n" + bEsc + "\n" + sPrevious)
+                MessageToast.show(sValue + "\n" + bEsc + "\n" + sPrevious + "\n" + sModelValue)
             },
 
             onLiveChange2 : function (oEvent) {
@@ -81,9 +84,9 @@ sap.ui.define([
         
                 // open value help dialog
                 this._pValueHelpDialog.then(function(oValueHelpDialog){
+                    oValueHelpDialog.open();
                     oValueHelpDialog._searchField.setValue(sValue);
                     // 입력창에 들어있는 값을 검색창에 복사
-                    oValueHelpDialog.open();
                 });
             },
 
@@ -103,6 +106,16 @@ sap.ui.define([
                     oInput.setValue(oSelectedItem.getTitle());
                 }
                 oEvent.getSource().getBinding("items").filter([]);
+            },
+
+            onSuggest : function(oEvent) {
+                var sTerm = oEvent.getParameter("suggestValue");
+                var aFilters = [];
+                if (sTerm) {
+                    aFilters.push(new Filter("Name", FilterOperator.Contains, sTerm));
+                }
+
+                oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
             }
         });
     });
