@@ -65,6 +65,7 @@ sap.ui.define([
                 var oView = this.getView();
                 // this._sInputId = oEvent.getSource().getId();
                 this._oInput = oEvent.getSource();
+                var sValue = oEvent.getSource().getValue();
         
                 // create value help dialog
                 if (!this._pValueHelpDialog) {
@@ -80,6 +81,8 @@ sap.ui.define([
         
                 // open value help dialog
                 this._pValueHelpDialog.then(function(oValueHelpDialog){
+                    oValueHelpDialog._searchField.setValue(sValue);
+                    // 입력창에 들어있는 값을 검색창에 복사
                     oValueHelpDialog.open();
                 });
             },
